@@ -2,6 +2,11 @@
 
 This Streamlit-powered dashboard enables visual exploration of a **momentum + mean reversion trading strategy** applied to **Infosys Ltd (April 2021 – March 2025)**. It combines classic technical indicators and data-driven storytelling to highlight tradeable signals and market behavior.
 
+## 🚀 Live App
+
+Check out the deployed Streamlit app here: [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://infyns-analysis-ps.streamlit.app/)
+
+
 ## 🚀 Features
 
 - 📊 **Interactive Dashboard** built with [Streamlit](https://streamlit.io/)
