@@ -19,6 +19,8 @@ with st.expander("📘 About This Strategy", expanded=True):
     ---
     This dashboard combines classic technical indicators with basic price action to extract tradeable insights.  
     📌 Use it to analyze behavior, detect patterns, and evaluate performance.  
+    ---
+    🚧 **Note**: This project is a work in progress. Continuous improvements are being made.
     """)
 
 # Function to display image + insights
