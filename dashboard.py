@@ -12,7 +12,7 @@ st.markdown("Explore technical signals, patterns, and performance through data-d
 with st.expander("📘 About This Strategy", expanded=True):
     st.markdown("""
     **Stock**:  Infosys Ltd\n
-    **Timeframe**:  April 1, 2020 - March 31, 2021\n 
+    **Timeframe**:  April 1, 2021 - March 31, 2025\n 
     **Data Interval**: Daily  \n
     **Strategy Focus**: Momentum & Mean Reversion Combination  \n
     **Indicators Used**: MACD, Bollinger Bands, Support/Resistance, Custom Signal Generator  \n
