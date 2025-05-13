@@ -55,14 +55,21 @@ with st.sidebar:
 def save_user_info(name, email, file_path="user_info.csv"):
     if name and email:
         df = pd.DataFrame([[name.strip(), email.strip()]], columns=["Name", "Email"])
+        
+        # Check if the directory exists and create it if not
+        if not os.path.exists(os.path.dirname(file_path)):
+            os.makedirs(os.path.dirname(file_path))
+        
         if os.path.exists(file_path):
             existing_df = pd.read_csv(file_path)
+            # Only append if the user is not already in the file
             if not ((existing_df["Name"] == name) & (existing_df["Email"] == email)).any():
                 df.to_csv(file_path, mode='a', header=False, index=False)
         else:
             df.to_csv(file_path, index=False)
 
-save_user_info(user_name, user_email)
+# Save user details locally
+save_user_info(user_name, user_email, file_path="user_info.csv")
 
 # ---------- Welcome Header ----------
 st.title("📊 Trading Strategy Dashboard with Storytelling")
