@@ -231,7 +231,7 @@ for title, filename, pattern, interpretation in charts_info:
 with tab2:
     st.subheader("📊 Strategy Performance Summary")
     with st.expander("📊 Strategy Performance Summary", expanded=True):
-        perf_txt_path = os.path.join(plot_dir, "performance_metrics.txt")
+        perf_txt_path = os.path.join("data", "performance_metrics.txt")
         if os.path.exists(perf_txt_path):
             with open(perf_txt_path, "r") as f:
                 performance = f.read()
