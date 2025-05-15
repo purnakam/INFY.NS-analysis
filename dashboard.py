@@ -72,27 +72,29 @@ def save_user_info(name, email, file_path="user_info.csv"):
 save_user_info(user_name, user_email, file_path="user_info.csv")
 
 # ---------- Welcome Header ----------
-st.title("📊 Trading Strategy Dashboard with Storytelling")
+st.title("📊 Infosys Stock Analysis")
 st.markdown(f"""
 **👋 Welcome, `{user_name}`!**
 
-Explore technical signals, patterns, and performance through data-driven visualizations.
+Dive into detailed technical analysis of Infosys stock — explore patterns, signals, and strategy performance through interactive, data-driven visualizations.
 """)
+
 
 # ---------- About Section ----------
 with st.expander("📘 About This Strategy", expanded=True):
     st.markdown("""
-    **Stock**:  Infosys Ltd  \n
-    **Timeframe**:  April 1, 2021 - March 31, 2025 \n  
+    **Stock Analyzed**: Infosys Ltd (INFY.NS)  \n
+    **Timeframe**: April 1, 2021 – March 31, 2025 \n  
     **Data Interval**: Daily  \n
-    **Strategy Focus**: Momentum & Mean Reversion \n 
-    **Indicators Used**: MACD, Bollinger Bands, RSI, Support/Resistance, Signal Strategy \n 
+    **Strategy Type**: Momentum & Mean Reversion \n  
+    **Technical Indicators Used**: RSI, MACD, Bollinger Bands, Support & Resistance, Custom Signal Strategy  \n
     ---
-    This dashboard combines classic technical indicators with price action to extract tradeable insights.  \n
-    📌 Use it to analyze behavior, detect patterns, and evaluate performance. \n  
+    This dashboard leverages classic technical analysis tools and price action patterns to uncover actionable trading insights. \n  
+    📊 Use it to explore market behavior, spot opportunities, and evaluate strategy performance. \n
     ---
-    🚧 **Note**: This project is a work in progress. Continuous improvements are being made.
+    ⚠️ **Note**: This is an evolving project. Features and accuracy are continuously being improved.
     """)
+
 
 # ---------- Tab Section ----------
 tab1, tab2 = st.tabs(["📈 Technical Analysis", "📊 Strategy Performance Summary"])
