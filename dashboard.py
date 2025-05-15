@@ -52,21 +52,20 @@ with st.sidebar:
         st.stop()
 
 # ---------- Save user info ----------
-def save_user_info(name, email, file_path="user_info.csv"):
-    if name and email:
-        df = pd.DataFrame([[name.strip(), email.strip()]], columns=["Name", "Email"])
-        
-        # Check if the directory exists and create it if not
-        if not os.path.exists(os.path.dirname(file_path)):
-            os.makedirs(os.path.dirname(file_path))
-        
-        if os.path.exists(file_path):
-            existing_df = pd.read_csv(file_path)
-            # Only append if the user is not already in the file
-            if not ((existing_df["Name"] == name) & (existing_df["Email"] == email)).any():
-                df.to_csv(file_path, mode='a', header=False, index=False)
-        else:
-            df.to_csv(file_path, index=False)
+def save_user_info(user_name, user_email, file_path="user_info.csv"):
+    directory = os.path.dirname(file_path)
+
+    if directory and not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Now write to the file
+    file_exists = os.path.isfile(file_path)
+    with open(file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(['Name', 'Email'])
+        writer.writerow([user_name, user_email])
+
 
 # Save user details locally
 save_user_info(user_name, user_email, file_path="user_info.csv")
@@ -238,6 +237,17 @@ with tab2:
             st.code(performance, language="markdown")
         else:
             st.warning("⚠️ Strategy performance summary text not found.")
+
+#---------- Footer ----------
+
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: gray;'>"
+    "📧 Contact: ll5268887@gmail.com | "
+    "© 2025 Trading Insights Dashboard |"
+    "👤 Developed by Purnakam Shrivastava"
+    "</div>", unsafe_allow_html=True)
+
 
 # ---------- CTA ----------
 st.balloons()
