@@ -65,6 +65,6 @@ A detailed performance summary including metrics such as:
 - Volatility
 - Sharpe Ratio
 
-👉 Output located at: `/plots/performance_metrics.txt`
+👉 Output located at: `/data/performance_metrics.txt`
 
 ---
