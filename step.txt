@@ -1,0 +1,34 @@
+- using yahoon finance 
+- extracting infosys stock data from 1 April 2021 to 31 March 2025
+- Performing EDA Steps : 
+                          1. Basic Structure & Preview
+                          2. Data Types & General Info
+                          3. Statistical Summary
+                          4. Missing & Duplicate Data
+                          5. Value Counts & Distributions 
+                          6. Correlation & Advanced Inspection
+
+- Some lows & Highs :
+                        1. Lowest High
+                        2. Highest High 
+                        3. Lowest Opening
+                        4. Highest Closing
+
+- Visualizing the Closing Price Trend
+- Add Technical Indicatores : 
+                                1. Simple Moving Average (SMA)
+                                2. Relative Strength Index (RSI)
+                                3. Moving Average Convergence Divergence (MACD)
+
+- Technical Analysis : 
+                        1. Calculate Daily Return
+                        2. Calculate cummulative Return
+                        3. Volatility Analysis
+                        4. Bollinger Band
+                        5. Volume & Price Movement (Dual Axis Plot)
+                        5. Support & Resistance Zone Detection
+                        6. Signal Based Strategy Using RSI + MACD Crossover
+
+- Strategy Performance vs Market Return
+- Strategy Performance Evaluation
+- Dashboard Create - using Streamlit : create sidebar for entering user data (neccesary to see Dashboard)

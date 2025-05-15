@@ -1,0 +1,13 @@
+streamlit
+mysql-connector-python
+PIL
+os
+re
+pandas
+numpy 
+seeaborn
+plotly.express
+matplotlib.pyplot
+ta
+yfinance
+time
