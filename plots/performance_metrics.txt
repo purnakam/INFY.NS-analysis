@@ -1,8 +1,0 @@
-Strategy Performance Metrics:
-Sharpe Ratio (Strategy): -0.18
-Sharpe Ratio (Stock): 0.35
-Max Drawdown (Strategy): -46.46%
-Max Drawdown (Stock): -35.56%
-Total Return (Strategy): -24.05%
-Total Return (Stock): 24.39%
-Win Rate (Strategy): 45.59%
