@@ -3,7 +3,6 @@ from PIL import Image
 import os
 import pandas as pd
 import re
-import mysql.connector
 import csv
 
 st.set_page_config(layout="wide", page_title="📈 Trading Strategy Dashboard")
