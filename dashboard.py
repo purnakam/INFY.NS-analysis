@@ -4,11 +4,10 @@ import os
 import pandas as pd
 import re
 import mysql.connector
+import csv
 
-# Page configuration
 st.set_page_config(layout="wide", page_title="📈 Trading Strategy Dashboard")
 
-# ---------- Custom CSS ----------
 st.markdown("""
     <style>
         .main { background-color: #f9f9f9; padding: 10px 30px; }
@@ -28,7 +27,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ---------- User Input in Sidebar ----------
 with st.sidebar:
     st.header("🔐 User Details (Required)")
     with st.form(key='user_form'):
@@ -41,38 +39,31 @@ with st.sidebar:
         st.sidebar.info("ℹ️ Please fill out the form and press Submit.")
         st.stop()
 
-    # Validation checks
     elif not user_name or not user_email:
         st.sidebar.warning("⚠️ Both Name and Email are required to proceed.")
-        # st.stop()
+        st.stop()
 
     elif not re.match(email_pattern, user_email.strip()):
         st.sidebar.error("❌ Invalid Email Format. Please enter a valid email like `example@domain.com`.")
         st.stop()
 
-    # Show success and save to MySQL
     else:
         st.sidebar.success("✅ Details submitted successfully!")
-        try:
-            db_password = os.getenv('DB_password')
-            connection = mysql.connector.connect(
-                host='localhost',
-                user='root',
-                password=db_password,
-                database='data_analysis'
-            )
-            cursor = connection.cursor()
-            cursor.execute("INSERT INTO data_analysis.infy_users (name, email) VALUES (%s, %s)", (user_name, user_email))
-            connection.commit()
-            cursor.close()
-            connection.close()
-            st.success("User data saved successfully!")
 
-        except mysql.connector.Error as err:
-            st.error(f"Error: {err}")
+def save_user_info(user_name, user_email, file_path="user_info.csv"):
+    directory = os.path.dirname(file_path)
 
+    if directory and not os.path.exists(directory):
+        os.makedirs(directory)
 
-# ---------- Welcome Header ----------
+    # Now write to the file
+    file_exists = os.path.isfile(file_path)
+    with open(file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(['Name', 'Email'])
+        writer.writerow([user_name, user_email])
+
 st.title("📊 Infosys Stock Analysis")
 st.markdown(f"""
 **👋 Welcome, `{user_name}`!**
@@ -80,7 +71,6 @@ st.markdown(f"""
 Dive into detailed technical analysis of Infosys stock — explore patterns, signals, and strategy performance through interactive, data-driven visualizations.
 """)
 
-# ---------- About Section ----------
 with st.expander("📘 About This Strategy", expanded=True):
     st.markdown("""
     **Stock Analyzed**: Infosys Ltd (INFY.NS)  \n
@@ -96,10 +86,8 @@ with st.expander("📘 About This Strategy", expanded=True):
     """)
 
 
-# ---------- Tab Section ----------
 tab1, tab2 = st.tabs(["📈 Technical Analysis", "📊 Strategy Performance Summary"])
 
-# ---------- Chart Display Function ----------
 with tab1:
     st.subheader("📈 Technical Indicators and Signals")
     def display_chart(title, image_path, pattern, interpretation):
@@ -119,7 +107,6 @@ with tab1:
                 st.markdown(f"**💡 Interpretation:** {interpretation}")
             st.markdown("—" * 30)
 
-# ---------- Chart Info ----------
 plot_dir = "plots"
 charts_info = [
     ("1️⃣ Closing Price Trend", "closing_price.png",
@@ -223,11 +210,9 @@ Golden Cross/Death Cross: "A 'golden cross' (50-day SMA crossing above the 200-d
 Dynamic Support/Resistance: "SMAs can also act as dynamic support in an uptrend or resistance in a downtrend. Traders may look for buying opportunities near a rising SMA or selling opportunities near a falling SMA.""''')
 ]
 
-# ---------- Render Charts ----------
 for title, filename, pattern, interpretation in charts_info:
     display_chart(title, os.path.join(plot_dir, filename), pattern, interpretation)
 
-# ---------- Performance Summary ----------
 with tab2:
     st.subheader("📊 Strategy Performance Summary")
     with st.expander("📊 Strategy Performance Summary", expanded=True):
@@ -239,8 +224,6 @@ with tab2:
         else:
             st.warning("⚠️ Strategy performance metrics file not found.")
 
-#---------- Footer ----------
-
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: gray;'>"
@@ -249,6 +232,5 @@ st.markdown(
     "👤 Developed by Purnakam Shrivastava"
     "</div>", unsafe_allow_html=True)
 
-# ---------- CTA ----------
 st.balloons()
 st.success("✅ Dashboard Loaded Successfully! Dive into the charts to discover market behavior & trading opportunities.")
