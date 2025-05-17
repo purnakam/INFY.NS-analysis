@@ -84,11 +84,6 @@ with st.expander("📘 About This Strategy", expanded=True):
     ⚠️ **Note**: This is an evolving project. Features and accuracy are continuously being improved.
     """)
 
-st.markdown("""
-### 📂 Excel Dashboard Link
-[Click here to open the Excel dashboard on Google Sheets](https://docs.google.com/spreadsheets/d/1-PbpBfi4M1ZU4Wf3ZoIZOxT_ST5ksiPTX-ZvwFiPjOw/edit?usp=sharing)
-""")
-
 
 
 tab1, tab2 = st.tabs(["📈 Technical Analysis", "📊 Strategy Performance Summary"])
