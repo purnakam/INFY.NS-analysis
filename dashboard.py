@@ -3,7 +3,7 @@ from PIL import Image
 import os
 import pandas as pd
 import re
-import csv
+import mysql.connector
 
 # Page configuration
 st.set_page_config(layout="wide", page_title="📈 Trading Strategy Dashboard")
@@ -35,41 +35,42 @@ with st.sidebar:
         user_name = st.text_input("Full Name", placeholder="Enter your name")
         user_email = st.text_input("Email Address", placeholder="Enter your email")
         submitted = st.form_submit_button("Submit")
-        
-    if submitted and user_name and user_email:
-        st.sidebar.success("✅ Details submitted successfully!")
 
-    if not submitted:
-        st.info("ℹ️ Please fill out the form and press Submit.")
-        st.stop()
-
-    if not user_name or not user_email:
-        st.warning("⚠️ Both Name and Email are required to proceed.")
-        st.stop()
-        
     email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w{2,4}$'
-    if not re.match(email_pattern, user_email.strip()):
-        st.error("❌ Invalid Email Format. Please enter a valid email like `example@domain.com`.")
+    if not submitted:
+        st.sidebar.info("ℹ️ Please fill out the form and press Submit.")
         st.stop()
 
-# ---------- Save user info ----------
-def save_user_info(user_name, user_email, file_path="user_info.csv"):
-    directory = os.path.dirname(file_path)
+    # Validation checks
+    elif not user_name or not user_email:
+        st.sidebar.warning("⚠️ Both Name and Email are required to proceed.")
+        # st.stop()
 
-    if directory and not os.path.exists(directory):
-        os.makedirs(directory)
+    elif not re.match(email_pattern, user_email.strip()):
+        st.sidebar.error("❌ Invalid Email Format. Please enter a valid email like `example@domain.com`.")
+        st.stop()
 
-    # Now write to the file
-    file_exists = os.path.isfile(file_path)
-    with open(file_path, mode='a', newline='') as file:
-        writer = csv.writer(file)
-        if not file_exists:
-            writer.writerow(['Name', 'Email'])
-        writer.writerow([user_name, user_email])
+    # Show success and save to MySQL
+    else:
+        st.sidebar.success("✅ Details submitted successfully!")
+        try:
+            db_password = os.getenv('DB_password')
+            connection = mysql.connector.connect(
+                host='localhost',
+                user='root',
+                password=db_password,
+                database='data_analysis'
+            )
+            cursor = connection.cursor()
+            cursor.execute("INSERT INTO data_analysis.infy_users (name, email) VALUES (%s, %s)", (user_name, user_email))
+            connection.commit()
+            cursor.close()
+            connection.close()
+            st.success("User data saved successfully!")
 
+        except mysql.connector.Error as err:
+            st.error(f"Error: {err}")
 
-# Save user details locally
-save_user_info(user_name, user_email, file_path="user_info.csv")
 
 # ---------- Welcome Header ----------
 st.title("📊 Infosys Stock Analysis")
@@ -78,7 +79,6 @@ st.markdown(f"""
 
 Dive into detailed technical analysis of Infosys stock — explore patterns, signals, and strategy performance through interactive, data-driven visualizations.
 """)
-
 
 # ---------- About Section ----------
 with st.expander("📘 About This Strategy", expanded=True):
@@ -237,7 +237,7 @@ with tab2:
                 performance = f.read()
             st.code(performance, language="markdown")
         else:
-            st.warning("⚠️ Strategy performance summary text not found.")
+            st.warning("⚠️ Strategy performance metrics file not found.")
 
 #---------- Footer ----------
 
@@ -248,7 +248,6 @@ st.markdown(
     "© 2025 Trading Insights Dashboard |"
     "👤 Developed by Purnakam Shrivastava"
     "</div>", unsafe_allow_html=True)
-
 
 # ---------- CTA ----------
 st.balloons()
